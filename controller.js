@@ -5,7 +5,7 @@ exports.getAllBlogs = async (req, res) => {
   try {
     let queryString = Blog.find().sort('createdAt').select('-__v');
 
-    if (req.query.author) queryString.find({ author: req.query.author.toLowerCase() });
+    if (req.query.author) queryString.find({ author: { $regex: req.query.author.toLowerCase(), $options: 'i' } });
     if (req.query.body) queryString.find({ body: { $regex: `^${req.query.body.toLowerCase()}`, $options: 'i' } });
     if (req.query.title) queryString.find({ title: { $regex: `^${req.query.title.toLowerCase()}`, $options: 'i' } });
 
