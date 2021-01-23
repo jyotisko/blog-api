@@ -5,7 +5,7 @@ Get all blogs: `https://blog-api-jyotisko.herokuapp.com/api/v1/blogs` (GET)
 
 Get blog by id: `https://blog-api-jyotisko.herokuapp.com/api/v1/blogs/:id` (GET)
 
-Get blog based on query: `https://blog-api-jyotisko.herokuapp.com/api/v1/blogs?body=why&author=mario` (GET)
+Get blog based on query: `https://blog-api-jyotisko.herokuapp.com/api/v1/blogs?body=query&author=query` (GET)
 
 Post a new blog: `https://blog-api-jyotisko.herokuapp.com/api/v1/blogs` (POST)
 
