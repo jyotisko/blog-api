@@ -12,6 +12,10 @@ const blogSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, 'A blog must have a title']
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 });
 

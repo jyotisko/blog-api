@@ -1,13 +1,23 @@
 const Blog = require('./model');
 
 exports.getAllBlogs = async (req, res) => {
+
   try {
-    const blogs = await Blog.find().select('-__v');
+    let queryString = Blog.find().sort('createdAt').select('-__v');
+
+    if (req.query.author) queryString.find({ author: req.query.author.toLowerCase() });
+    if (req.query.body) queryString.find({ body: { $regex: `^${req.query.body.toLowerCase()}`, $options: 'i' } });
+    if (req.query.title) queryString.find({ title: { $regex: `^${req.query.title.toLowerCase()}`, $options: 'i' } });
+
+    const blogs = await queryString;
+
     res.status(200).json({
       status: 'success',
       ok: true,
-      blogs: blogs
+      blogs: blogs,
+      results: blogs.length
     });
+
   } catch (err) {
     res.status(400).json({
       status: 'failed',
@@ -41,6 +51,27 @@ exports.addNewBlog = async (req, res) => {
       ...req.body,
       status: 'success',
       ok: true
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'failed',
+      ok: false,
+      message: err
+    });
+  }
+};
+
+exports.updateBlog = async (req, res) => {
+  try {
+    const newBlogDetails = req.body;
+    const id = req.params.id;
+
+    const blog = await Blog.findByIdAndUpdate(id, newBlogDetails, { new: true });
+
+    res.status(204).json({
+      status: 'success',
+      ok: true,
+      updatedBlog: blog,
     });
   } catch (err) {
     res.status(400).json({
