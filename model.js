@@ -13,6 +13,10 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A blog must have a title']
   },
+  userID: {
+    type: String,
+    required: [true, 'A blog must have a User ID']
+  },
   createdAt: {
     type: Date,
     default: Date.now
