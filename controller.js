@@ -82,6 +82,28 @@ exports.updateBlog = async (req, res) => {
   }
 };
 
+exports.updateAllAuthor = async (req, res) => {
+  try {
+    const userID = req.params.uid;
+    const newAuthorName = req.body.authorName;
+    if (!userID || !newAuthorName) throw new Error('userID/authorName is required for this action to be performed.');
+
+    const blogs = await Blog.updateMany({ userID: userID }, { author: newAuthorName });
+
+    res.status(204).json({
+      status: 'success',
+      ok: true,
+    });
+
+  } catch (err) {
+    res.status(400).json({
+      status: 'failed',
+      ok: false,
+      message: err
+    });
+  }
+};
+
 exports.deleteBlogById = async (req, res) => {
   try {
     await Blog.findByIdAndDelete(req.params.id);
