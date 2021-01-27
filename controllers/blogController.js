@@ -1,4 +1,4 @@
-const Blog = require('./model');
+const Blog = require('./../models/blogModel');
 
 exports.getAllBlogs = async (req, res) => {
 
@@ -88,7 +88,7 @@ exports.updateAllAuthor = async (req, res) => {
     const newAuthorName = req.body.authorName;
     if (!userID || !newAuthorName) throw new Error('userID/authorName is required for this action to be performed.');
 
-    const blogs = await Blog.updateMany({ userID: userID }, { author: newAuthorName });
+    await Blog.updateMany({ userID: userID }, { author: newAuthorName });
 
     res.status(204).json({
       status: 'success',
