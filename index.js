@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const blogRouter = require('./routers/blogRouter');
 const userRouter = require('./routers/userRouter');
+const bookmarksRouter = require('./routers/bookmarksRoutes')
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use('/api/v1/blogs', blogRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/bookmarks', bookmarksRouter);
 
 mongoose.connect(process.env.DATABASE, {
   useUnifiedTopology: true,
