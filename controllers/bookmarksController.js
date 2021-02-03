@@ -7,7 +7,7 @@ exports.getAllBookmarks = async (req, res) => {
 
     if (req.query.userID && !req.query.blogID) queryString = Bookmarks.find({ userID: req.query.userID });
     else if (req.query.userID && req.query.blogID) queryString = Bookmarks.find({ userID: req.query.userID, blogID: req.query.blogID });
-    else queryString = queryString.find();
+    else queryString = Bookmarks.find();
 
     const bookmarks = await queryString.select('-__v');
 
