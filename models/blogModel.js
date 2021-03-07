@@ -17,6 +17,10 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A blog must have a User ID']
   },
+  keywords: {
+    type: String,
+    default: ''
+  },
   createdAt: {
     type: Date,
     default: Date.now
