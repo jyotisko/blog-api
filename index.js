@@ -3,6 +3,12 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 
+process.on('uncaughtException', err => {
+  console.log(err.name, err.message);
+  console.log('UNCAUGHT EXCEPTION 💥: Shutting down.');
+  process.exit(1);
+});
+
 const globalErrorHandler = require('./controllers/errorController');
 const blogRouter = require('./routers/blogRouter');
 const userRouter = require('./routers/userRouter');
@@ -31,10 +37,13 @@ mongoose.connect(process.env.DATABASE, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
-}).then(() => console.log('DB connection sucessful!')).catch(err => console.error(err));
-
+}).then(() => console.log('DB connection sucessful!'));
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`App running on port ${port}`));
+const server = app.listen(port, () => console.log(`App running on port ${port}`));
 
-
+process.on('unhandledRejection', err => {
+  console.log(err.name, err.message);
+  console.log('UNHANDLED REJECTION 💥: Shutting down.');
+  server.close(() => process.exit(1));
+});
