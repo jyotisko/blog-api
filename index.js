@@ -6,7 +6,8 @@ const cors = require('cors');
 const globalErrorHandler = require('./controllers/errorController');
 const blogRouter = require('./routers/blogRouter');
 const userRouter = require('./routers/userRouter');
-const bookmarksRouter = require('./routers/bookmarksRoutes')
+const bookmarksRouter = require('./routers/bookmarksRoutes');
+const emailRouter = require('./routers/emailRouter');
 
 const app = express();
 
@@ -16,8 +17,9 @@ app.use(express.json());
 app.use('/api/v1/blogs', blogRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/bookmarks', bookmarksRouter);
+app.use('/api/v1/email', emailRouter);
 
-app.all('*', (req, res, next) => {
+app.all('*', (req, _, next) => {
   const err = new Error(`Can't find ${req.originalUrl} on this server!`);
   next(err);
 });

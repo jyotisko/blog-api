@@ -1,15 +1,17 @@
+const ApiFeature = require('../utils/apiFeatures');
 const Blog = require('./../models/blogModel');
 
 exports.getAllBlogs = async (req, res) => {
 
   try {
-    let queryString = Blog.find().sort('createdAt').select('-__v');
+    // let queryString = Blog.find().sort('createdAt').select('-__v');
 
-    if (req.query.author) queryString.find({ author: { $regex: req.query.author.toLowerCase(), $options: 'i' } });
-    if (req.query.body) queryString.find({ body: { $regex: `^${req.query.body.toLowerCase()}`, $options: 'i' } });
-    if (req.query.title) queryString.find({ title: { $regex: `^${req.query.title.toLowerCase()}`, $options: 'i' } });
+    // if (req.query.author) queryString.find({ author: { $regex: req.query.author.toLowerCase(), $options: 'i' } });
+    // if (req.query.body) queryString.find({ body: { $regex: `^${req.query.body.toLowerCase()}`, $options: 'i' } });
+    // if (req.query.title) queryString.find({ title: { $regex: `^${req.query.title.toLowerCase()}`, $options: 'i' } });
 
-    const blogs = await queryString;
+    const Features = new ApiFeature(req.query, Blog.find()).filter().default().limitFields();
+    const blogs = await Features.queryString;
 
     res.status(200).json({
       status: 'success',

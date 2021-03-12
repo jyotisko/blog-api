@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon.cmd index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "debug": "ndb.cmd index.js"
   },
   "author": "Jyotisko Sengupta",
   "license": "ISC",
@@ -13,6 +14,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.11.13"
+    "mongoose": "^5.11.13",
+    "nodemailer": "^6.5.0"
   }
 }
