@@ -68,3 +68,23 @@ exports.deleteBookmark = async (req, res) => {
     });
   }
 };
+
+exports.deleteAllBookmarksBasedOnBlogID = async (req, res) => {
+  try {
+
+    const { blogID } = req.params;
+    await Bookmarks.deleteMany({ blogID: blogID });
+
+    res.status(204).json({
+      status: 'success',
+      ok: true
+    });
+
+  } catch (err) {
+    res.status(400).json({
+      status: 'failed',
+      ok: false,
+      message: err
+    });
+  }
+};
