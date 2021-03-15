@@ -6,12 +6,14 @@ exports.getAllBlogs = async (req, res) => {
   try {
     const Features = new ApiFeature(req.query, Blog.find()).filter().default().limitFields().paginate();
     const blogs = await Features.queryString;
+    const totalResults = await Blog.find();
 
     res.status(200).json({
       status: 'success',
       ok: true,
       blogs: blogs,
-      results: blogs.length
+      results: blogs.length,
+      totalResults: totalResults.length
     });
 
   } catch (err) {
