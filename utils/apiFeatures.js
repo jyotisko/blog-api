@@ -23,6 +23,14 @@ class ApiFeature {
     this.queryString.select(fields);
     return this;
   }
+
+  paginate() {
+    const page = this.query.page * 1 || 1;
+    const limit = this.query.limit * 1 || 20;
+    const skip = (page - 1) * limit;
+    this.queryString.skip(skip).limit(limit);
+    return this;
+  }
 };
 
 module.exports = ApiFeature;

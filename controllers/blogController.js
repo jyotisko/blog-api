@@ -4,7 +4,7 @@ const Blog = require('./../models/blogModel');
 exports.getAllBlogs = async (req, res) => {
 
   try {
-    const Features = new ApiFeature(req.query, Blog.find()).filter().default().limitFields();
+    const Features = new ApiFeature(req.query, Blog.find()).filter().default().limitFields().paginate();
     const blogs = await Features.queryString;
 
     res.status(200).json({
